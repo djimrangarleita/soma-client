@@ -1,31 +1,49 @@
+import UserProfileCard from './UserProfileCard'
+
 export default function Components() {
   return (
     <>
-      <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center gap-x-4">
+      <br className="space-y-4" />
+      <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex items-center gap-x-4">
+        <button className="py-2 px-5 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-75">
+          Save changes
+        </button>
+        <button className="border border-blue-500 text-blue-500 text-sm font-semibold px-5 py-2 rounded-md hover:border-transparent hover:bg-blue-500 hover:text-white flex items-center focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-75">
+          Save changes
+        </button>
+      </div>
+      <br className="space-y-4" />
+      <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex items-center gap-x-4">
         <div className="shrink-0">
-          <img className="size-12" src="/vite.svg" alt="ChitChat Logo" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            className="fill-none size-10 stroke-slate-500 stroke-[1.5]"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+            />
+          </svg>
         </div>
         <div>
           <div className="text-xl font-medium text-black">ChitChat</div>
           <p className="text-slate-500">You have a new message!</p>
         </div>
       </div>
-
-      <div className="py-8 px-8 max-w-sm mx-auto space-y-2 bg-white rounded-xl shadow-lg sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:gap-x-6">
-        <img
-          className="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
-          src="https://tailwindcss.com/img/erin-lindford.jpg"
-          alt="Woman's Face"
+      <br className="space-y-4" />
+      <div className="flex flex-wrap mx-auto items-center max-w-md gap-y-3">
+        <UserProfileCard
+          handleAction={async (e) => {
+            console.log('Click', e)
+          }}
         />
-        <div className="text-center space-y-2 sm:text-left">
-          <div className="space-y-0.5">
-            <p className="text-lg text-black font-semibold">Erin Lindford</p>
-            <p className="text-slate-500 font-medium">Product Engineer</p>
-          </div>
-          <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
-            Message
-          </button>
-        </div>
+        <UserProfileCard
+          handleAction={async (e) => {
+            console.log('Click', e)
+          }}
+        />
       </div>
     </>
   )
