@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns'
 import config from '../config'
-import { PostComment } from './types'
+import { PostComment } from '../lib/types'
 
 export default function PostCommentCard({
   id,

@@ -1,5 +1,6 @@
 import { MagnifyingGlassCircleIcon } from '@heroicons/react/24/solid'
 import Navitem from './Navitem'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   return (
@@ -8,9 +9,9 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-6">
-              <a href="#" className="text-xl font-bold text-blue-600">
+              <Link to="/" className="text-xl font-bold text-blue-600">
                 SocialApp
-              </a>
+              </Link>
               <div className="relative">
                 <input
                   type="text"
@@ -23,13 +24,16 @@ export default function Navbar() {
             <div className="md:flex items-center space-x-8 hidden">
               <Navitem />
             </div>
-            <a href="#" className="text-gray-500 hover:text-blue-500">
+            <Link
+              to="/profile/me"
+              className="text-gray-500 hover:text-blue-500"
+            >
               <img
                 className="w-10 h-10 rounded-full object-cover"
                 src="https://randomuser.me/api/portraits/men/32.jpg"
                 alt="Profile picture"
               />
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

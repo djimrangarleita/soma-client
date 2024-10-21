@@ -1,5 +1,5 @@
 import config from '../config'
-import { PostLike } from './types'
+import { PostLike } from '../lib/types'
 
 type LikesAvatarProps = {
   likesCount: number

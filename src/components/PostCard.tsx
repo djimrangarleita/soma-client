@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline'
 import config from '../config'
 import FollowButton from './FollowButton'
-import { Post } from './types'
+import { Post } from '../lib/types'
 import { formatDistanceToNow } from 'date-fns'
 
 export default function PostCard({

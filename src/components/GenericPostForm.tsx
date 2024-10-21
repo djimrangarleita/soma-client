@@ -1,7 +1,8 @@
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
-import sleep from './sleep'
+import React, { useState } from 'react'
+import sleep from '../lib/sleep'
 import config from '../config'
+import requestHandler from '../lib/requestHandler'
 
 type GenericPostFormProps = {
   rounded?: boolean
@@ -21,7 +22,8 @@ export default function GenericPostForm({
     if (content.trim()) {
       try {
         setIsSubmitting(true)
-        await sleep(10000)
+        // await sleep(10000)
+        await requestHandler('posts')
         const response = await handleAction(content)
         const data = await response.json()
         if (response.ok) {
@@ -53,7 +55,9 @@ export default function GenericPostForm({
             className={`w-full ${rounded && 'h-8 focus:h-12'} resize-none border-none focus:outline-none focus:ring-0 bg-transparent text-slate-600 text-md`}
             placeholder="Write a comment..."
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value)
+            }}
             disabled={isSubmitting}
           />
           <button

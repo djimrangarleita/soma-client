@@ -1,7 +1,7 @@
 import { ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
-import uploadFile from './uploadFile'
+import uploadFile from '../lib/uploadFile'
 import Spinner from './Spinner'
 
 type FieldInputProps = {
