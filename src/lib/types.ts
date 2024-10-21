@@ -2,10 +2,20 @@ export type User = {
   id: string,
   name: string,
   avatar: string,
-  booksCount: number,
+  _count: {
+    notes: number,
+    libraries: number,
+    posts: number,
+    comments: number,
+    postLikes: number,
+    commentLikes: number,
+  },
 }
 
-export type PostLike = Omit<User, 'name' | 'booksCount'>
+export type PostLike = {
+  user: User,
+  createdAt?: Date,
+}
 
 type LikesCommentsCount = {
   likes: number,
@@ -15,20 +25,21 @@ type LikesCommentsCount = {
 export type PostComment =  {
   id: string,
   user: User,
-  comment: string,
+  text: string,
   createdAt: Date,
-  count: LikesCommentsCount,
+  _count: LikesCommentsCount,
 }
 
 export type Post = {
   id: string,
-  content: string,
+  text: string,
+  reference: string,
   medias: string[],
   user: User,
   createdAt: Date,
-  count: LikesCommentsCount,
-  comments: PostComment[]
-  likes: PostLike[],
+  _count: LikesCommentsCount,
+  comments?: PostComment[]
+  likes?: PostLike[],
 }
 
 export type PostFormData = {

@@ -9,7 +9,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Navbar />
-      <App />
+      <div className="pt-24 pb-24 mx-auto px-3 max-w-md">
+        <App />
+      </div>
     </BrowserRouter>
   </StrictMode>
 )

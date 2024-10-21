@@ -27,7 +27,6 @@ export default function Signup() {
         </p>
 
         <div className="flex items-center justify-between">
-          {/* Loading State */}
           <FileUploadInput
             fieldName="Upload avatar"
             handleUploadState={handleAvatarUpload}
@@ -140,7 +139,7 @@ export default function Signup() {
 
         <p className="text-center text-gray-600 text-xs mt-4">
           Do you have an account?{' '}
-          <a href="#" className="text-blue-500 hover:underline">
+          <a href="/login" className="text-blue-500 hover:underline">
             Log In
           </a>
         </p>

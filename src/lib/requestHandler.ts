@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import config from "../config";
 
-const requestHandler = async (requestPath: string, method: string = 'GET', data?: any): Promise<Response> => {
+const requestHandler = async (requestPath: string, method: string = 'GET', data?: any): Promise<any> => {
   const token = localStorage.getItem('X-TOKEN') || '';
+  // await sleep(10000);
   const response = await fetch(`${config.serverUrl}/api/${requestPath}`, {
     method: method.toUpperCase(),
     body: data,

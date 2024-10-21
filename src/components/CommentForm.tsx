@@ -1,10 +1,12 @@
+import { LegacyRef } from 'react'
 import GenericPostForm from './GenericPostForm'
 
 interface CommentFormProps {
   postId: string
+  inputRef?: LegacyRef<HTMLTextAreaElement> | undefined
 }
 
-export default function CommentForm({ postId }: CommentFormProps) {
+export default function CommentForm({ postId, inputRef }: CommentFormProps) {
   const handleSubmit = async (comment: string) => {
     const response = await fetch(`/api/comments/${postId}`, {
       method: 'POST',
@@ -16,5 +18,5 @@ export default function CommentForm({ postId }: CommentFormProps) {
     return response
   }
 
-  return <GenericPostForm handleAction={handleSubmit} />
+  return <GenericPostForm handleAction={handleSubmit} inputRef={inputRef} />
 }

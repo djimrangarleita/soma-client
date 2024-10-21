@@ -30,10 +30,10 @@ export default function NewPostCard() {
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md max-w-md mx-auto">
+    <div className="bg-white p-4 mb-6 rounded-lg shadow-md w-full">
       <GenericPostForm rounded={true} handleAction={handlePostSubmit} />
 
-      <div className="flex justify-center items-center mt-3 space-x-4 max-w-sm">
+      <div className="flex justify-center items-center mt-3 space-x-4">
         <FileUpdloadInput
           fieldName="Image"
           textColor="gray-500"

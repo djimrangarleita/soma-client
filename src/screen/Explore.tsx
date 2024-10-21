@@ -1,7 +1,18 @@
+import BookCard from '../components/BookCard'
+import UserProfileCard from '../components/UserProfileCard'
+
 export default function Explore() {
+  const handleFollowEvent = async (
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+    console.log('New follow', e)
+  }
+
   return (
     <>
-      <h1>Explore</h1>
+      <UserProfileCard handleAction={handleFollowEvent} />
+      <BookCard />
     </>
   )
 }

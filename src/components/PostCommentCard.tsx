@@ -1,33 +1,43 @@
 import { formatDistanceToNow } from 'date-fns'
 import config from '../config'
 import { PostComment } from '../lib/types'
+import { useNavigate } from 'react-router-dom'
 
 export default function PostCommentCard({
   id,
   user,
-  comment,
+  text,
   createdAt,
-  count,
+  _count,
 }: PostComment) {
+  const navigate = useNavigate()
+
   return (
     <div
       className="max-w-md mx-auto bg-white shadow-md rounded-lg p-4 mb-4"
       key={id}
     >
-      {/* Comment Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center space-x-2 mb-2">
           <div className="w-10 h-10 rounded-full border border-gray-300 overflow-hidden">
             <img
               src={user.avatar || config.avatarPlaceholder}
               alt={`${user.name}'s avatar`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover hover:cursor-pointer"
+              onClick={() => navigate(`/profile/${user.id}`)}
             />
           </div>
           <div>
-            <h2 className="font-semibold text-gray-800">{user.name}</h2>
+            <h2
+              className="font-semibold text-gray-800 hover:cursor-pointer"
+              onClick={() => navigate(`/profile/${user.id}`)}
+            >
+              {user.name}
+            </h2>
             <p className="text-sm text-gray-500">
-              {user.booksCount > 1 ? `${user.booksCount} Books` : ''}
+              {user._count.libraries > 1
+                ? `${user._count.libraries} Books`
+                : ''}
             </p>
           </div>
         </div>
@@ -36,16 +46,14 @@ export default function PostCommentCard({
         </div>
       </div>
 
-      {/* User Comment */}
-      <p className="text-gray-700 mb-4">{comment}</p>
+      <p className="text-gray-700 mb-4">{text}</p>
 
-      {/* Action Buttons */}
       <div className="flex justify-start gap-x-4">
         <button className="flex items-center text-slate-500 hover:underline hover:text-blue-500 transition duration-200 text-sm">
-          {count.likes || ''} Like
+          {_count.likes || ''} Like
         </button>
         <button className="flex items-center text-slate-500 hover:underline cursor-not-allowed hover:text-blue-500 transition duration-200 text-sm">
-          {count.comments || ''} Comment
+          {_count.comments || ''} Comment
         </button>
       </div>
     </div>

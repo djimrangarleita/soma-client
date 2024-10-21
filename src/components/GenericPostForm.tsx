@@ -1,16 +1,17 @@
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import React, { useState } from 'react'
-import sleep from '../lib/sleep'
+import React, { LegacyRef, useState } from 'react'
 import config from '../config'
 import requestHandler from '../lib/requestHandler'
 
 type GenericPostFormProps = {
   rounded?: boolean
+  inputRef?: LegacyRef<HTMLTextAreaElement> | undefined
   handleAction: (content: string) => Promise<Response | never>
 }
 
 export default function GenericPostForm({
   rounded = false,
+  inputRef = undefined,
   handleAction,
 }: GenericPostFormProps) {
   const [content, setContent] = useState('')
@@ -59,6 +60,7 @@ export default function GenericPostForm({
               setContent(e.target.value)
             }}
             disabled={isSubmitting}
+            ref={inputRef}
           />
           <button
             type="submit"

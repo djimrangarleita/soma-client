@@ -1,6 +1,6 @@
 export default function Login() {
   return (
-    <div className="flex items-center justify-center min-h-screen mx-auto max-w-md">
+    <div className="flex items-center justify-center">
       <form className="bg-white shadow-lg rounded-lg px-8 pt-8 pb-10 mb-4 w-full">
         <div className="flex justify-center mb-4">
           <img
@@ -79,7 +79,7 @@ export default function Login() {
 
         <p className="text-center text-gray-600 text-xs mt-4">
           Don't have an account?{' '}
-          <a href="#" className="text-blue-500 hover:underline">
+          <a href="/sign-up" className="text-blue-500 hover:underline">
             Sign Up
           </a>
         </p>
