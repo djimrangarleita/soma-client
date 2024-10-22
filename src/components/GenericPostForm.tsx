@@ -25,6 +25,7 @@ export default function GenericPostForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
     if (content.trim()) {
       try {
         setIsSubmitting(true)
@@ -57,6 +58,7 @@ export default function GenericPostForm({
               value={content}
               onChange={(e) => {
                 setContent(e.target.value)
+                setError('')
               }}
               disabled={isSubmitting}
               ref={inputRef}

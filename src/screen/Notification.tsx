@@ -1,7 +1,6 @@
-import BookCard from '../components/BookCard'
 import { motion } from 'framer-motion'
 
-export default function Explore() {
+export default function notification() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -9,7 +8,7 @@ export default function Explore() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.7 }}
     >
-      <BookCard />
+      <h1>Notification</h1>
     </motion.div>
   )
 }

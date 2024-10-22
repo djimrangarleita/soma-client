@@ -1,8 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { User } from '../lib/types'
-import FollowButton from './FollowButton'
+// import FollowButton from './FollowButton'
 import config from '../config'
 import { formatDistanceToNow } from 'date-fns'
+import toast from 'react-hot-toast'
+import { useEffect, useState } from 'react'
+import FollowButton from './FollowButton'
 
 type PostHeaderCardProps = {
   user: User
@@ -13,7 +16,21 @@ export default function PostCardHeader({
   createdAt,
 }: PostHeaderCardProps) {
   const navigate = useNavigate()
-  const userId = localStorage.getItem('id')
+  const [showFollow, setShowFollow] = useState(false)
+
+  useEffect(() => {
+    const userId = localStorage.getItem('id')
+    if (userId && user.id !== userId && !user.isFollowed) {
+      setShowFollow(true)
+    }
+  }, [user.id, user.isFollowed])
+
+  const handleFollow = () => {
+    toast.success(`Success, you are now following ${user.name}`, {
+      duration: 6000,
+    })
+    setShowFollow(false)
+  }
 
   return (
     <div className="flex items-center p-4">
@@ -33,7 +50,9 @@ export default function PostCardHeader({
           {formatDistanceToNow(createdAt)}
         </p>
       </div>
-      {!userId || (userId !== user.id && <FollowButton userId={user.id} />)}
+      {showFollow && (
+        <FollowButton user={user} handleFollowSuccess={handleFollow} />
+      )}
     </div>
   )
 }

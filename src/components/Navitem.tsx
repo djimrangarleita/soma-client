@@ -48,7 +48,7 @@ export default function Navitem() {
         <span className="text-xs hidden sm:block">Explore</span>
       </NavLink>
       <NavLink
-        to="#"
+        to="/notification"
         className={({ isActive }: { isActive: boolean }) =>
           `${isActive ? 'text-blue-500' : 'text-gray-500'} hover:text-blue-500 flex flex-col items-center`
         }

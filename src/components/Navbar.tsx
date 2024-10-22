@@ -1,4 +1,5 @@
 import {
+  BookOpenIcon,
   MagnifyingGlassCircleIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/solid'
@@ -9,6 +10,7 @@ import requestHandler from '../lib/requestHandler'
 import { clearStorage } from '../lib/storageManager'
 import toast from 'react-hot-toast'
 import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline'
+import config from '../config'
 
 export default function Navbar() {
   const avatar = localStorage.getItem('avatar')
@@ -62,8 +64,12 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-6">
-              <Link to="/" className="text-xl font-bold text-blue-600">
-                SocialApp
+              <Link
+                to="/"
+                className="text-xl flex items-center justify-start font-bold text-blue-500"
+              >
+                <BookOpenIcon className="h-8 w-8" />
+                Soma
               </Link>
               {userLocalId && (
                 <div className="relative">
@@ -83,9 +89,7 @@ export default function Navbar() {
                 </div>
                 <img
                   className="w-10 h-10 rounded-full object-cover cursor-pointer"
-                  src={
-                    avatar || 'https://randomuser.me/api/portraits/men/32.jpg'
-                  }
+                  src={avatar || config.avatarPlaceholder}
                   alt="Profile picture"
                   onClick={toggleMenu}
                   id="avatar"
@@ -126,10 +130,10 @@ export default function Navbar() {
       <div className="relative">
         <div
           ref={dropdownRef}
-          className={`absolute top-full right-0 z-10 mt-20 w-48 bg-white shadow-lg rounded-lg py-2 transition-transform duration-300 ease-in-out overflow-hidden ${
+          className={`absolute top-full right-0 z-10 mt-20 bg-white shadow-lg rounded-lg py-2 transition-transform duration-300 ease-in-out overflow-hidden ${
             menuOpen
-              ? 'transform translate-x-0 opacity-100'
-              : 'transform translate-x-full opacity-0'
+              ? 'w-48 transform translate-x-0 opacity-100'
+              : 'transform translate-x-full opacity-0 w-0'
           }`}
         >
           <Link

@@ -10,6 +10,8 @@ const PostLikes = lazy(() => import('./screen/PostLikes'))
 const SignUp = lazy(() => import('./screen/SignUp'))
 const Explore = lazy(() => import('./screen/Explore'))
 const Network = lazy(() => import('./screen/Network'))
+const Library = lazy(() => import('./screen/Library'))
+const Notification = lazy(() => import('./screen/Notification'))
 
 type RouteType = {
   path: string,
@@ -62,6 +64,16 @@ export const routes: RouteType[] = [
     path: '/explore',
     authRequired: false,
     component: Explore,
+  },
+  {
+    path: '/library',
+    authRequired: true,
+    component: Library,
+  },
+  {
+    path: '/notification',
+    authRequired: true,
+    component: Notification,
   },
   {
     path: '/*',

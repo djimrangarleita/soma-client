@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import requestHandler from '../lib/requestHandler'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { setUserData } from '../lib/storageManager'
 import toast from 'react-hot-toast'
+import { motion } from 'framer-motion'
+import { BookOpenIcon } from '@heroicons/react/24/solid'
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -46,18 +48,25 @@ export default function Login() {
   }
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7 }}
+    >
       <div className="flex items-center justify-center">
         <form
-          className="bg-white shadow-lg rounded-lg px-8 pt-8 pb-10 mb-4 w-full"
+          className="bg-white shadow-md rounded-lg px-8 pt-8 pb-10 mb-4 w-full"
           onSubmit={handleSubmit}
         >
           <div className="flex justify-center mb-4">
-            <img
-              src="https://images.unsplash.com/photo-1633410189542-36d96e3762b8?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Company Logo"
-              className="w-36"
-            />
+            <Link
+              to="/"
+              className="text-xl flex items-center justify-start font-bold text-blue-500"
+            >
+              <BookOpenIcon className="h-8 w-8" />
+              Soma
+            </Link>
           </div>
 
           <h2 className="text-center text-2xl font-bold text-gray-800 mb-4">
@@ -142,6 +151,6 @@ export default function Login() {
           </p>
         </form>
       </div>
-    </>
+    </motion.div>
   )
 }
