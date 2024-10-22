@@ -6,13 +6,17 @@ import { useEffect, useState } from 'react'
 import Spinner from '../components/Spinner'
 
 export default function Home() {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState<Post[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const data = await requestHandler('posts')
+        const response = await requestHandler('posts')
+        const data = await response.json()
+        if (!response.ok) {
+          throw new Error(data.message)
+        }
         setPosts(data)
       } catch (error) {
         const err = error as Error
@@ -24,9 +28,15 @@ export default function Home() {
     fetchPosts()
   }, [])
 
+  const handleUpdate = (post: Post | undefined) => {
+    if (post) {
+      setPosts([post, ...posts])
+    }
+  }
+
   return (
     <>
-      <NewPostCard />
+      <NewPostCard handlePostsUpdate={handleUpdate} />
       {isLoading ? (
         <Spinner loadingText="Loading..." />
       ) : (

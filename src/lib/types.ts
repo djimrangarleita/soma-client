@@ -2,6 +2,7 @@ export type User = {
   id: string,
   name: string,
   avatar: string,
+  profile?: UserProfile
   _count: {
     notes: number,
     libraries: number,
@@ -10,6 +11,20 @@ export type User = {
     postLikes: number,
     commentLikes: number,
   },
+}
+
+export type UserProfile = {
+  gender: string | undefined;
+  birthday: Date | undefined;
+  coverPicture: string | undefined;
+  timeZone: string | undefined;
+  bio: string | undefined;
+  favoriteAuthor: string | undefined;
+  favoriteBook: string | undefined;
+  favoriteGenres: string[];
+  centerOfInterest: string[];
+  id: string;
+  userId: string;
 }
 
 export type PostLike = {

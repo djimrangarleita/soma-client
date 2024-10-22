@@ -4,7 +4,7 @@ import {
   ShareIcon,
 } from '@heroicons/react/24/outline'
 import { Post } from '../lib/types'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PostCardHeader from './PostCardHeader'
 
 export default function PostCard({
@@ -22,24 +22,25 @@ export default function PostCard({
     <div className="bg-white shadow-lg rounded-lg overflow-hidden" key={id}>
       <PostCardHeader user={user} createdAt={createdAt} />
 
-      <div className="px-4 py-2" onClick={() => navigate(`/posts/${id}`)}>
+      <div className="px-4 py-2">
         <div className="line-clamp-3 text-gray-700 relative">
           <p>{text}</p>
-          <a
-            href="#"
-            className="absolute bottom-0 right-0 bg-white pl-1 text-blue-500"
+          <Link
+            to={`/posts/${id}`}
+            className="absolute bottom-0 right-0 bg-white pl-1 text-slate-500 hover:cursor-pointer"
           >
             ...view
-          </a>
+          </Link>
         </div>
         {media && (
           <div className="mt-4">
-            <img
-              className="rounded-lg w-full hover:cursor-pointer"
-              src={media}
-              alt="Post image"
-              onClick={() => navigate(`/posts/${id}`)}
-            />
+            <Link to={`/posts/${id}`}>
+              <img
+                className="rounded-lg w-full hover:cursor-pointer"
+                src={media}
+                alt="Post image"
+              />
+            </Link>
           </div>
         )}
       </div>
@@ -47,23 +48,23 @@ export default function PostCard({
       <div className="px-4 py-2 flex justify-between text-sm text-gray-600">
         {_count.likes > 0 && (
           <div className="flex items-center">
-            <a
-              onClick={() => navigate(`/posts/${id}/likes`)}
+            <Link
+              to={`/posts/${id}/likes`}
               className="hover:text-blue-500 hover:underline"
             >
               <span>{_count.likes} Likes</span>
-            </a>
+            </Link>
           </div>
         )}
 
         {_count.comments > 0 && (
           <div className="flex items-center">
-            <a
-              onClick={() => navigate(`/posts/${id}`)}
+            <Link
+              to={`/posts/${id}`}
               className="hover:text-blue-500 hover:underline"
             >
               <span>{_count.comments} Comments</span>
-            </a>
+            </Link>
           </div>
         )}
       </div>

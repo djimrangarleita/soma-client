@@ -17,15 +17,17 @@ export default function FollowButton({
   const [isLoading, setIsLoading] = useState(false)
   const [isFollowing, setIsFollowing] = useState(false)
   const [error, setError] = useState('')
+  const userLocalId = localStorage.getItem('id')
 
   const handleFollowEvent = async () => {
     setIsLoading(true)
     try {
       const response = await requestHandler(`users/${userId}/follow`)
-      if (response.status === 201) {
+      const data = await response.json()
+      if (response.ok) {
         setIsFollowing(true)
       }
-      throw new Error(response.error)
+      throw new Error(data.message)
     } catch (error) {
       const err = error as Error
       setError('Failed')
@@ -35,9 +37,11 @@ export default function FollowButton({
     }
   }
 
-  return (
+  return userId === userLocalId ? (
+    ''
+  ) : (
     <>
-      {isLoading == true ? (
+      {isLoading ? (
         <Spinner />
       ) : (
         <div>

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { User } from '../lib/types'
 import FollowButton from './FollowButton'
 import config from '../config'
@@ -13,6 +13,7 @@ export default function PostCardHeader({
   createdAt,
 }: PostHeaderCardProps) {
   const navigate = useNavigate()
+  const userId = localStorage.getItem('id')
 
   return (
     <div className="flex items-center p-4">
@@ -23,17 +24,16 @@ export default function PostCardHeader({
         onClick={() => navigate(`/profile/${user.id}`)}
       />
       <div className="ml-3 flex-1">
-        <h2
-          className="text-gray-900 font-semibold hover:cursor-pointer"
-          onClick={() => navigate(`/profile/${user.id}`)}
-        >
-          {user.name}
-        </h2>
+        <Link to={`/profile/${user.id}`}>
+          <h2 className="text-gray-900 font-semibold hover:cursor-pointer">
+            {user.name}
+          </h2>
+        </Link>
         <p className="text-gray-500 text-sm">
           {formatDistanceToNow(createdAt)}
         </p>
       </div>
-      <FollowButton userId={user.id} />
+      {!userId || (userId !== user.id && <FollowButton userId={user.id} />)}
     </div>
   )
 }

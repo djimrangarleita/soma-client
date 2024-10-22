@@ -8,7 +8,7 @@ type FieldInputProps = {
   fieldName: string
   textColor?: string
   border?: boolean
-  handleUploadState: (filePath: string) => void
+  handleUploadState?: (filePath: string) => void
 }
 
 export default function FileUploadInput({
@@ -29,10 +29,10 @@ export default function FileUploadInput({
       setUploadError(null)
       try {
         const filePath = await uploadFile(file)
-        handleUploadState(filePath)
+        if (handleUploadState) handleUploadState(filePath)
       } catch (error) {
         const err = error as Error
-        handleUploadState('')
+        if (handleUploadState) handleUploadState('')
         setUploadError(`Failed: ${err.message.substring(0, 12)}...`)
         console.error(err.message)
       } finally {

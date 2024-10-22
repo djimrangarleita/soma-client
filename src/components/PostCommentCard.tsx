@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import config from '../config'
 import { PostComment } from '../lib/types'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function PostCommentCard({
   id,
@@ -28,11 +28,8 @@ export default function PostCommentCard({
             />
           </div>
           <div>
-            <h2
-              className="font-semibold text-gray-800 hover:cursor-pointer"
-              onClick={() => navigate(`/profile/${user.id}`)}
-            >
-              {user.name}
+            <h2 className="font-semibold text-gray-800 hover:cursor-pointer">
+              <Link to={`/profile/${user.id}`}>{user.name}</Link>
             </h2>
             <p className="text-sm text-gray-500">
               {user._count.libraries > 1
@@ -45,9 +42,7 @@ export default function PostCommentCard({
           <p>{formatDistanceToNow(createdAt)}</p>
         </div>
       </div>
-
       <p className="text-gray-700 mb-4">{text}</p>
-
       <div className="flex justify-start gap-x-4">
         <button className="flex items-center text-slate-500 hover:underline hover:text-blue-500 transition duration-200 text-sm">
           {_count.likes || ''} Like

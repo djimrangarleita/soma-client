@@ -1,5 +1,5 @@
 import axios from "axios";
-import sleep from "./sleep";
+import { sleep } from "./utils";
 
 const uploadFile = async (
   file: File

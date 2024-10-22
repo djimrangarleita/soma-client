@@ -1,5 +1,3 @@
-import UserProfileCard from './UserProfileCard'
-
 export default function Components() {
   return (
     <>
@@ -31,19 +29,6 @@ export default function Components() {
           <div className="text-xl font-medium text-black">ChitChat</div>
           <p className="text-slate-500">You have a new message!</p>
         </div>
-      </div>
-      <br className="space-y-4" />
-      <div className="flex flex-wrap mx-auto items-center max-w-md gap-y-3">
-        <UserProfileCard
-          handleAction={async (e) => {
-            console.log('Click', e)
-          }}
-        />
-        <UserProfileCard
-          handleAction={async (e) => {
-            console.log('Click', e)
-          }}
-        />
       </div>
     </>
   )
