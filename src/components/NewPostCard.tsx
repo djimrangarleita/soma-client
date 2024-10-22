@@ -53,6 +53,7 @@ export default function NewPostCard({ handlePostsUpdate }: NewPostCardProps) {
           duration: 6000,
         }
       )
+      setFilePath('')
     } catch (error) {
       const err = error as Error
       console.error(err.message)

@@ -1,16 +1,20 @@
 import axios from "axios";
+import config from "../config";
 import { sleep } from "./utils";
 
 const uploadFile = async (
-  file: File
+  file: File,
+  folderName?: string
 ): Promise<string | never> => {
   const formData = new FormData()
-  formData.append('avatar', file)
+  formData.append('file', file)
+  const token = localStorage.getItem('token');
 
   await sleep(10000);
-  const response = await axios.post('/api/upload-file', formData, {
+  const response = await axios.post(`${config.serverUrl}/api/upload?dir=${folderName||''}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      'X-TOKEN': token,
     },
   });
 

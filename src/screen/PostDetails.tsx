@@ -10,6 +10,7 @@ import ChipsButton from '../components/ChipsButton'
 import toast from 'react-hot-toast'
 import { clearStorage } from '../lib/storageManager'
 import FileUploadInput from '../components/FileUploadInput'
+import { motion } from 'framer-motion'
 
 export default function PostDetails() {
   const [post, setPost] = useState<Post | never | null>()
@@ -20,6 +21,7 @@ export default function PostDetails() {
   const localUserId = localStorage.getItem('id')
   const [renderUpdateForm, setRenderUpdateForm] = useState(false)
   const [filePath, setFilePath] = useState<string | undefined>(post?.medias[0])
+  const [postComments, setPostComments] = useState<PostComment[]>([])
 
   const handleFocusComment = () => {
     if (!localUserId) {
@@ -33,17 +35,16 @@ export default function PostDetails() {
     content: string
   ): Promise<undefined | never> => {
     try {
-      const response = await requestHandler(
-        `posts/${post?.id}/comment`,
-        'post',
-        { content }
-      )
+      const response = await requestHandler(`comment/${post?.id}`, 'post', {
+        text: content,
+      })
       const data = await response.json()
       if (!response.ok) {
         throw new Error(data.message)
       }
       const comment: PostComment = data
-      console.log(comment)
+      toast.success('Comment recorded succesfully', { duration: 6000 })
+      setPostComments([comment, ...postComments])
     } catch (error) {
       const err = error as Error
       console.error(err.message)
@@ -86,6 +87,7 @@ export default function PostDetails() {
 
   const handlePostEdit = async () => {
     setRenderUpdateForm(!renderUpdateForm)
+    setFilePath(post?.medias[0])
   }
 
   const handlePostUpdate = async (text: string) => {
@@ -131,6 +133,7 @@ export default function PostDetails() {
           throw new Error(data.message)
         }
         setPost(data)
+        setPostComments(data.comments)
       } catch (error) {
         const err = error as Error
         console.error(err.message)
@@ -142,7 +145,12 @@ export default function PostDetails() {
   }, [id])
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7 }}
+    >
       {isLoading ? (
         <Spinner loadingText="Loading..." />
       ) : post ? (
@@ -159,6 +167,7 @@ export default function PostDetails() {
                 <FileUploadInput
                   fieldName="Image"
                   handleUploadState={handleFileUpload}
+                  key="key-upload-post-file"
                 />
                 <div className="w-20 h-20 bg-transparent flex items-center justify-center mr-4">
                   {filePath && (
@@ -191,6 +200,11 @@ export default function PostDetails() {
           {!renderUpdateForm && (
             <>
               <div className="my-8 space-y-2">
+                {post._count.comments === 0 && (
+                  <p className="text text-slate-500">
+                    Be the first one to comment this
+                  </p>
+                )}
                 <GenericPostForm
                   handleAction={handleCommentSubmit}
                   key="comment"
@@ -198,8 +212,13 @@ export default function PostDetails() {
                 />
               </div>
               <div className="flex flex-col gap-y-2">
-                {post.comments?.map((comment) => {
-                  return <PostCommentCard {...comment} key={comment.id} />
+                {postComments?.map((comment) => {
+                  return (
+                    <PostCommentCard
+                      {...comment}
+                      key={`${comment.id}${comment.user.id}`}
+                    />
+                  )
                 })}
               </div>
             </>
@@ -208,6 +227,6 @@ export default function PostDetails() {
       ) : (
         <p>No Post</p>
       )}
-    </>
+    </motion.div>
   )
 }

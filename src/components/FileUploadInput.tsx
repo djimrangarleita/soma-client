@@ -26,13 +26,17 @@ export default function FileUploadInput({
     const file = event.target.files?.[0]
     if (file) {
       setIsLoading(true)
-      setUploadError(null)
+      setUploadError('')
       try {
         const filePath = await uploadFile(file)
-        if (handleUploadState) handleUploadState(filePath)
+        if (handleUploadState) {
+          handleUploadState(filePath)
+        }
       } catch (error) {
         const err = error as Error
-        if (handleUploadState) handleUploadState('')
+        if (handleUploadState) {
+          handleUploadState('')
+        }
         setUploadError(`Failed: ${err.message.substring(0, 12)}...`)
         console.error(err.message)
       } finally {

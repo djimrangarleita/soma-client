@@ -11,6 +11,10 @@ export type User = {
     postLikes: number,
     commentLikes: number,
   },
+  followers: User[],
+  following: User[],
+  isFollowing: boolean,
+  isFollowed: boolean,
 }
 
 export type UserProfile = {

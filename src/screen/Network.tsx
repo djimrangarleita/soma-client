@@ -3,6 +3,7 @@ import UserProfileCard from '../components/UserProfileCard'
 import requestHandler from '../lib/requestHandler'
 import Spinner from '../components/Spinner'
 import { User } from '../lib/types'
+import { motion } from 'framer-motion'
 
 export default function Network() {
   const [users, setUsers] = useState([])
@@ -28,7 +29,12 @@ export default function Network() {
   }, [])
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7 }}
+    >
       {isLoading ? (
         <Spinner loadingText="Loading..." />
       ) : (
@@ -42,6 +48,6 @@ export default function Network() {
           )}
         </div>
       )}
-    </>
+    </motion.div>
   )
 }
