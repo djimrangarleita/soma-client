@@ -27,7 +27,7 @@ export const routes: RouteType[] = [
   },
   {
     path: '/network',
-    authRequired: false,
+    authRequired: true,
     component: Network,
   },
   {

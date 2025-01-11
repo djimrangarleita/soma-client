@@ -2,11 +2,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import ProfileHeader from '../components/ProfileHeader'
 import { useEffect, useState } from 'react'
 import requestHandler from '../lib/requestHandler'
-import { User } from '../lib/types'
+import { Post, User } from '../lib/types'
 import Spinner from '../components/Spinner'
 import { clearStorage } from '../lib/storageManager'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
+import PostCard from '../components/PostCard'
 
 export default function Profile() {
   const [user, setUser] = useState<User | never | null>()
@@ -48,7 +49,18 @@ export default function Profile() {
       {isLoading ? (
         <Spinner loadingText="Loading..." />
       ) : user ? (
-        <ProfileHeader user={user} />
+        <>
+          <ProfileHeader user={user} />
+          <div className="mt-36 flex flex-col gap-6">
+            {user.posts.length > 0 ? (
+              user.posts.map((post: Post) => {
+                return <PostCard {...post} key={post.id} />
+              })
+            ) : (
+              <p>No Post</p>
+            )}
+          </div>
+        </>
       ) : (
         <p>No User</p>
       )}

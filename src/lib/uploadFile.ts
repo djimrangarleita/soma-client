@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "../config";
-import { sleep } from "./utils";
 
 const uploadFile = async (
   file: File,
@@ -10,7 +9,6 @@ const uploadFile = async (
   formData.append('file', file)
   const token = localStorage.getItem('token');
 
-  await sleep(10000);
   const response = await axios.post(`${config.serverUrl}/api/upload?dir=${folderName||''}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

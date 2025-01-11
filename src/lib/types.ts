@@ -15,6 +15,7 @@ export type User = {
   following: User[],
   isFollowing: boolean,
   isFollowed: boolean,
+  posts: Post[]
 }
 
 export type UserProfile = {

@@ -22,6 +22,7 @@ export default function PostDetails() {
   const [renderUpdateForm, setRenderUpdateForm] = useState(false)
   const [filePath, setFilePath] = useState<string | undefined>(post?.medias[0])
   const [postComments, setPostComments] = useState<PostComment[]>([])
+  const [showFirstPostText, setShowFirstPostText] = useState(false)
 
   const handleFocusComment = () => {
     if (!localUserId) {
@@ -45,6 +46,7 @@ export default function PostDetails() {
       const comment: PostComment = data
       toast.success('Comment recorded succesfully', { duration: 6000 })
       setPostComments([comment, ...postComments])
+      setShowFirstPostText(false)
     } catch (error) {
       const err = error as Error
       console.error(err.message)
@@ -134,6 +136,9 @@ export default function PostDetails() {
         }
         setPost(data)
         setPostComments(data.comments)
+        if (data._count.comments === 0) {
+          setShowFirstPostText(true)
+        }
       } catch (error) {
         const err = error as Error
         console.error(err.message)
@@ -200,7 +205,7 @@ export default function PostDetails() {
           {!renderUpdateForm && (
             <>
               <div className="my-8 space-y-2">
-                {post._count.comments === 0 && (
+                {showFirstPostText && (
                   <p className="text text-slate-500">
                     Be the first one to comment this
                   </p>

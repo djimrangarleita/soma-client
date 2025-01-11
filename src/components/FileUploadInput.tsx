@@ -23,6 +23,7 @@ export default function FileUploadInput({
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    console.log("Don't disturb")
     const file = event.target.files?.[0]
     if (file) {
       setIsLoading(true)

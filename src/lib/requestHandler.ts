@@ -3,7 +3,6 @@ import config from "../config";
 
 const requestHandler = async (requestPath: string, method: string = 'GET', data?: any): Promise<Response | never> => {
   const token = localStorage.getItem('token') || '';
- 
   const response = await fetch(`${config.serverUrl}/api/${requestPath}`, {
     method: method.toUpperCase(),
     body: JSON.stringify(data),
