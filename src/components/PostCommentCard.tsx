@@ -3,6 +3,9 @@ import config from '../config'
 import { PostComment } from '../lib/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import toast from 'react-hot-toast'
+import requestHandler from '../lib/requestHandler'
+import { useState } from 'react'
 
 export default function PostCommentCard({
   id,
@@ -10,8 +13,29 @@ export default function PostCommentCard({
   text,
   createdAt,
   _count,
+  isLiked,
 }: PostComment) {
   const navigate = useNavigate()
+  const [likesCount, setLikesCount] = useState(_count.likes)
+  const [isLikedByUser, setIsLikedByUser] = useState(isLiked)
+
+  const handleLike = async () => {
+    try {
+      const response = await requestHandler(`comments/${id}/like`, 'patch')
+      const data = await response.json()
+      if (!response.ok) {
+        if (response.status === 401) {
+          toast.error('Please login to like comments', { duration: 3000 })
+        }
+        throw new Error(data.message)
+      }
+      setIsLikedByUser((prev) => !prev)
+      setLikesCount(data._count.likes)
+    } catch (error) {
+      const err = error as Error
+      console.error(err.message)
+    }
+  }
 
   return (
     <motion.div
@@ -51,8 +75,17 @@ export default function PostCommentCard({
         </div>
         <p className="text-gray-700 mb-4">{text}</p>
         <div className="flex justify-start gap-x-4">
-          <button className="flex items-center text-slate-500 hover:underline hover:text-blue-500 transition duration-200 text-sm">
-            {_count.likes || ''} Like
+          <button
+            className={
+              isLikedByUser
+                ? `text-blue-500 underline text-sm`
+                : `flex items-center text-slate-500 hover:underline hover:text-blue-500 cursor-pointer transition duration-200 text-sm`
+            }
+            onClick={handleLike}
+          >
+            <span>
+              {likesCount || ''} {likesCount < 2 ? 'Like' : 'Likes'}
+            </span>
           </button>
           <button className="flex items-center text-slate-500 hover:underline cursor-not-allowed hover:text-blue-500 transition duration-200 text-sm">
             {_count.comments || ''} Comment
