@@ -90,6 +90,7 @@ export default function PostDetails() {
   const handlePostEdit = async () => {
     setRenderUpdateForm(!renderUpdateForm)
     setFilePath(post?.medias[0])
+    setFilePath(post?.medias[0])
   }
 
   const handlePostUpdate = async (text: string) => {
