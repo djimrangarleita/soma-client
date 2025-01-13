@@ -36,7 +36,7 @@ export default function PostDetails() {
     content: string
   ): Promise<undefined | never> => {
     try {
-      const response = await requestHandler(`comment/${post?.id}`, 'post', {
+      const response = await requestHandler(`comments/${post?.id}`, 'post', {
         text: content,
       })
       const data = await response.json()
@@ -136,7 +136,6 @@ export default function PostDetails() {
           throw new Error(data.message)
         }
         setPost(data)
-        setPostComments(data.comments)
         if (data._count.comments === 0) {
           setShowFirstPostText(true)
         }
@@ -148,6 +147,23 @@ export default function PostDetails() {
       }
     }
     fetchPosts()
+  }, [id])
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await requestHandler(`comments/${id}`)
+        const data = await response.json()
+        if (!response.ok) {
+          throw new Error(data.message)
+        }
+        setPostComments(data.comments)
+      } catch (error) {
+        const err = error as Error
+        console.error(err.message)
+      }
+    }
+    fetchComments()
   }, [id])
 
   return (
@@ -206,7 +222,7 @@ export default function PostDetails() {
           {!renderUpdateForm && (
             <>
               <div className="my-8 space-y-2">
-                {showFirstPostText && (
+                {showFirstPostText && localUserId && (
                   <p className="text text-slate-500">
                     Be the first one to comment this
                   </p>

@@ -48,6 +48,7 @@ export type PostComment =  {
   text: string,
   createdAt: Date,
   _count: LikesCommentsCount,
+  isLiked: boolean,
 }
 
 export type Post = {
@@ -60,6 +61,7 @@ export type Post = {
   _count: LikesCommentsCount,
   comments?: PostComment[]
   likes?: PostLike[],
+  isLiked: boolean,
 }
 
 export type PostFormData = {

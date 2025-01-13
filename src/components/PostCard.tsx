@@ -1,12 +1,8 @@
-import {
-  ChatBubbleLeftEllipsisIcon,
-  HandThumbUpIcon,
-  ShareIcon,
-} from '@heroicons/react/24/outline'
 import { Post } from '../lib/types'
 import { Link, useNavigate } from 'react-router-dom'
 import PostCardHeader from './PostCardHeader'
 import { motion } from 'framer-motion'
+import PostFooter from './PostFooter'
 
 export default function PostCard({
   id,
@@ -15,6 +11,7 @@ export default function PostCard({
   user,
   createdAt,
   _count,
+  isLiked,
 }: Post) {
   const media = medias[0]
   const navigate = useNavigate()
@@ -52,47 +49,10 @@ export default function PostCard({
           )}
         </div>
 
-        <div className="px-4 py-2 flex justify-between text-sm text-gray-600">
-          {_count.likes > 0 && (
-            <div className="flex items-center">
-              <Link
-                to={`/posts/${id}/likes`}
-                className="hover:text-blue-500 hover:underline"
-              >
-                <span>{_count.likes} Likes</span>
-              </Link>
-            </div>
-          )}
-
-          {_count.comments > 0 && (
-            <div className="flex items-center">
-              <Link
-                to={`/posts/${id}`}
-                className="hover:text-blue-500 hover:underline"
-              >
-                <span>{_count.comments} Comments</span>
-              </Link>
-            </div>
-          )}
-        </div>
-
-        <div className="flex justify-around items-center pt-3 pb-5 border-t">
-          <button className="flex space-x-2 items-center text-gray-600 hover:text-blue-500">
-            <HandThumbUpIcon className="h-6 w-6" />
-            <span>Like</span>
-          </button>
-          <button
-            className="flex space-x-2 items-center text-gray-600 hover:text-blue-500"
-            onClick={() => navigate(`/posts/${id}`)}
-          >
-            <ChatBubbleLeftEllipsisIcon className="h-6 w-6" />
-            <span>Comment</span>
-          </button>
-          <button className="flex space-x-2 items-center text-gray-600 hover:text-blue-500 cursor-not-allowed">
-            <ShareIcon className="h-6 w-6" />
-            <span>Share</span>
-          </button>
-        </div>
+        <PostFooter
+          {...{ id, _count, isLiked }}
+          handleCommentBoxFocus={() => navigate(`/posts/${id}`)}
+        />
       </div>
     </motion.div>
   )
